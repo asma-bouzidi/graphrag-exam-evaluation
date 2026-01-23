@@ -22,7 +22,7 @@ jobs:
           id: build-frontend-docker-image
           run: |
             ls -la 
-            docker build . -f Dockerfile -t israbouzidy/project-frontend:latest
+            docker build ./frontend/ -f Dockerfile -t israbouzidy/project-frontend:latest
        
         - name: push the docker image
           id: push-frontend-docker-image
