@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'frontend/'
+      - 'frontend'
       - '.github/workflows/docker-build.yml'
   workflow_dispatch:
 
