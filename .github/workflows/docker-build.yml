@@ -3,10 +3,11 @@ name: Build & Push Frontend Docker Image
 on:
   [push]
     #branches:
-      # main
+     # - main
 
-    jobs-and-push-frontend:
-    build:
+
+jobs:
+    build-and-push-frontend:
       name: push docker image to docker hub
       runs-on: ubuntu-latest
       
