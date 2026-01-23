@@ -3,7 +3,7 @@ name: Build and Push Frontend Docker Image
 on:
   push:
     branches:
-      - main
+      - "feat/GEE-3-build-push-the-docker-image-to-docker-hub-using-github-actions"
 
 jobs:
   build-and-push:
