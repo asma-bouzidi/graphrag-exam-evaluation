@@ -1,10 +1,10 @@
 name: Build & Push Frontend Docker Image
 
 on:
-  push:
-    branches:
-      - "feat/GEE-2-build-push-the-docker-image-to-docker-hub-using-github-actions"
-
+  [push]
+    #branches:
+     # - main
+     
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
