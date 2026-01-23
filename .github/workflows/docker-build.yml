@@ -5,30 +5,28 @@ on:
     #branches:
       # main
 
-jobs:
-  build-and-push-frontend:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME_ASMA }}
-          password: ${{ secrets.DOCKERHUB_TOKEN_ASMA }}
-
-      - name: Build and push image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./frontend
-          file: ./frontend/Dockerfile
-          push: true
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME_ASMA }}/frontend:latest
-            ${{ secrets.DOCKERHUB_USERNAME_ASMA }}/frontend:${{ github.sha }}
-
+    jobs-and-push-frontend:
+    build:
+      name: push docker image to docker hub
+      runs-on: ubuntu-latest
+      
+      steps:
+        - uses: actions/checkout@v2
+        
+        - name: login to docker hub
+          id: docker-hub
+          env:
+            username: ${{secrets.DOCKERHUB_USERNAME_ASMA}}
+            token: ${{secrets.DOCKERHUB_TOKEN_ASMA}}
+          run: |
+            docker login -u $username -p $token 
+        
+        - name: build the docker image
+          id: build-docker-image
+          run: |
+            ls -la 
+            docker build . -f Dockerfile -t asmabouzidi/frontend-image-test:latest
+        
+        - name: push the docker image
+          id: push-docker-image
+          run: docker push ${{secrets.DOCKERHUB_USERNAME}}/frontend-image-test:latest
