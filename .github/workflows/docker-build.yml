@@ -7,7 +7,7 @@ on:
     paths:
       - 'frontend/**'
       - '.github/workflows/docker-build.yml'
-  workflow_dispatch:
+    workflow_dispatch:
 
 jobs:
   build-and-push:
