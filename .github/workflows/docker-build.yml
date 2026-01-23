@@ -26,7 +26,7 @@ jobs:
           id: build-docker-image
           run: |
             ls -la 
-            docker build frontend -f frontend/Dockerfile-test -t asmabouzidi/frontend-image-test:latest
+            docker build frontend -f frontend/Dockerfile -t asmabouzidi/frontend-image-test:latest
         
         - name: push the docker image
           id: push-docker-image
