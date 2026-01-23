@@ -1,7 +1,13 @@
 name: Build & Push Frontend Docker Image
 
 on:
-  push
+  push:
+    branches:
+      - main
+    paths:
+      - 'frontend/**'
+      - 'frontend/.github/workflows/docker-build.yml'
+  workflow_dispatch:
 
 jobs:
   build-and-push:
@@ -23,9 +29,12 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./frontend
+          file: ./frontend/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/frontend:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
