@@ -3,11 +3,7 @@ name: Build & Push Frontend Docker Image
 on:
   [push]
     #branches:
-      #- main
-    paths:
-      - 'frontend/**'
-      - '.github/workflows/docker-build.yml'
-    workflow_dispatch:
+      # main
 
 jobs:
   build-and-push:
