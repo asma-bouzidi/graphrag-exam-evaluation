@@ -1,13 +1,16 @@
 name: Build & Push Frontend Docker Image
 
 on:
-  push:
+  [push]
+    #branches:
+      #- main
+  push
     branches:
       - main
     paths:
-      - 'frontend'
+      - 'frontend/**'
       - '.github/workflows/docker-build.yml'
-  workflow_dispatch:
+    workflow_dispatch:
 
 jobs:
   build-and-push:
@@ -35,3 +38,4 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/frontend:${{ github.sha }}
+
