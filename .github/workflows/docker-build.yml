@@ -1,33 +1,30 @@
 name: Build & Push Frontend Docker Image
 
 on:
-  [push]
-    #branches:
-     # - main
-
+  push:
+    branches:
+      - feat/GEE-2-build-push-the-docker-image-to-docker-hub-using-github-actions
 
 jobs:
-    build-and-push-frontend:
-      name: push frontend image to docker hub
-      runs-on: ubuntu-latest
-      
-      steps:
-        - uses: actions/checkout@v2
-        
-        - name: login to docker hub
-          id: docker-hub
-          env:
-            username: ${{secrets.DOCKERHUB_USERNAME_ASMA}}
-            token: ${{secrets.DOCKERHUB_TOKEN_ASMA}}
-          run: |
-            docker login -u $username -p $token 
-        
-        - name: build the docker image
-          id: build-docker-image
-          run: |
-            ls -la 
-            docker build frontend -f frontend/Dockerfile -t asmabouzidi/frontend-image-test:latest
-        
-        - name: push the docker image
-          id: push-docker-image
-          run: docker push ${{secrets.DOCKERHUB_USERNAME}}/frontend-image-test:latest
+  build-and-push-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        run: |
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME_ASMA }} \
+                       -p ${{ secrets.DOCKERHUB_TOKEN_ASMA }}
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t asmabouzidi/frontend-image-test:latest \
+            -f frontend/Dockerfile \
+            frontend
+
+      - name: Push Docker image
+        run: |
+          docker push asmabouzidi/frontend-image-test:latest
